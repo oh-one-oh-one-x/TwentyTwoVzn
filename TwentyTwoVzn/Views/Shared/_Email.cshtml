@@ -1,0 +1,40 @@
+﻿@model TwentyTwoVzn.Models.Reserve
+
+@{
+    var db = new TwentyTwoVzn.Models.ApplicationDbContext();
+}
+
+
+<div>
+    <h4>Event Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Event
+        </dt>
+
+        <dd>
+            @db.Events.Find(Model.EventID).EventName
+        </dd>
+
+        <dt>
+           Date of Event
+        </dt>
+
+        <dd>
+            @db.Events.Find(Model.EventID).EventDate.ToLongDateString();
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumAttendees);
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumAttendees)
+        </dd>
+
+    </dl>
+</div>
+
+
+

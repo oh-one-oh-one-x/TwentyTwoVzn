@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TwentyTwoVzn.Models.Service>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeID)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceDetails)
+        </td>
+        <td>
+            @if (item.ServiceImage != null)
+            {
+                var base64 = Convert.ToBase64String(item.ServiceImage);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+                <img src='@imgsrc' height="120" width="120" style="padding:5px" class="img-rounded" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusinessID)
+        </td>
+        <td>
+            <a href="/Items/Create/?ServiceID=@item.ServiceID">Create Item</a> |
+            @Html.ActionLink("Details", "Details", new { id=item.ServiceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ServiceID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TwentyTwoVzn.Models.Business>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BusName)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.BusContact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusOwner)
+        </th>
+        <
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusName)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.BusContact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusOwner)
+        </td>
+        
+        <td>
+            <a href="/Services/Create/?businessId=@item.BusID">Create Service</a>
+            |
+            @Html.ActionLink("Details", "Details", new { id=item.BusID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BusID })
+        </td>
+    </tr>
+}
+
+</table>

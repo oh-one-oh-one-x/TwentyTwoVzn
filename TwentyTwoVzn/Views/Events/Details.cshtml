@@ -1,0 +1,83 @@
+﻿@model TwentyTwoVzn.Models.Event
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EventName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Host)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Host)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventCapacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventCapacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EventID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

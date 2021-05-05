@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TwentyTwoVzn.Models.Reserve>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Event.EventName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumAttendees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReserveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event.EventName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumAttendees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReserveDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReserveID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReserveID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReserveID })
+        </td>
+    </tr>
+}
+
+</table>

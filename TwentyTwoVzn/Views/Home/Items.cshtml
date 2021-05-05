@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TwentyTwoVzn.Models.Item>
+
+@{
+    ViewBag.Title = "Items";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var db = new TwentyTwoVzn.Models.ApplicationDbContext();
+
+}
+
+<div class="page-heading header-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>See below @ViewBag.ServiceName</h1>
+                <span>We Hope To See You Soon!</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="service">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>@ViewBag.ServiceName <em>Items</em></h2>
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        @if (item.ItemImage != null)
+                        {
+                            var base64 = Convert.ToBase64String(item.ItemImage);
+                            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+                            <img src='@imgsrc' height="300" width="250" style="padding:5px" class="img-rounded" />
+                        }
+                        @*<img src="assets/images/service_01.jpg" alt="">*@
+                        <div class="down-content">
+                            <h4>@item.ItemName</h4>
+                            <p>@item.ItemDetails</p>
+                            <br />
+                            <h5>@item.ItemPrice</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

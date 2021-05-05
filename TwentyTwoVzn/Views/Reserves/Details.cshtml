@@ -1,0 +1,51 @@
+﻿@model TwentyTwoVzn.Models.Reserve
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reserve</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.EventName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Event.EventName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumAttendees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumAttendees)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReserveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReserveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReserveID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TwentyTwoVzn.Models.Event>
+
+@{
+    ViewBag.Title = "Events";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Events You Might Enjoy!!</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @foreach (var item in Model)
+                {
+                <div class="service-item">
+                    @if (item.Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(item.Image);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+
+                        <img src='@imgsrc' height="120" width="120" style="padding:5px" class="img-rounded" />
+                    }
+                    <div class="down-content">
+                        <h4>@item.EventName</h4>
+                        <h3>@item.EventCapacity</h3>
+                        <p>@item.Host <br /> @item.EventDate<br />@item.EventStatus <br /> @item.Location </p>
+                        <a href="/Events/Reserve" class="filled-button">Make Reservation</a>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
