@@ -75,7 +75,7 @@
                     <ul class="navbar-nav ml-auto">
 
                         <li class="has-children">
-                            
+
                             <ul class="dropdown">
 
                                 <li><a href="/Account/Login">Log In</a></li>
@@ -90,11 +90,11 @@
                             <a class="nav-link" href="/Home/About">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="services.html">What We Offer</a>
+                            <a class="nav-link" href="#">What We Offer</a>
                             <ul class="dropdown">
                                 @foreach (var item in db.ServiceTypes.ToList())
                                 {
-                                    <li><a href="/Home/Services/?id=@item.TypeID">@item.TypeName</a></li>
+                                    <li><a href="/Home/Service/?id=@item.TypeID">@item.TypeName</a></li>
                                 }
                             </ul>
 
@@ -109,7 +109,7 @@
     </header>
 
     <!-- Page Content -->
-    
+
 
     @RenderBody()
 
@@ -178,7 +178,53 @@
     <script src="~/Scripts/accordions.js"></script>
     @Scripts.Render("~/bundles/jquery")
 
+    <script>
+        $.get("/home/serviceApi/",
+        {
+            id: '@ViewBag.id'
 
+        },
+            function (data) {
+                console.log(data.services)
+                for (let i = 0; i < data.services.length; i++) {
+                    Getmap(data.services[i].ServiceID, data.services[i].ServiceLocation)
+            }
+        });
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2wxSVxmBm6Wpy8sqXoLUL6tyrROtxh8&callback=initMap&libraries=&v=weekly"
+            defer></script>
+    <script>
+        var Getmap = function (id, location) {
+
+            var span = "#distance-" + id;
+            const matrix = new google.maps.DistanceMatrixService();
+            console.log( 'location'+location)
+            matrix.getDistanceMatrix({
+                origins: ["122B Florida Rd, Windermere, Berea"],
+                destinations: [location],
+                travelMode: google.maps.TravelMode.DRIVING,
+            }, function (response, status) {
+                console.log(response);
+                //console.log(response.originAddresses);
+                    var distance = response.rows[0].elements;
+                    $(span).html(distance[0].distance.text);
+            });
+        }
+        var GetDistance = function (response) {
+            var distance = response.rows[0].elements;
+            return distance[0].distance.value;
+        }
+        var converttoKm = function (meters) {
+            var x = (meters / 1000);
+            document.getElementById('Distance').innerHTML = x + "KM";
+            var s = document.getElementById('txtdistance');
+            s.value = x;
+
+            return x;
+        }
+
+    </script>
     <script language="text/Javascript">
 
         cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field

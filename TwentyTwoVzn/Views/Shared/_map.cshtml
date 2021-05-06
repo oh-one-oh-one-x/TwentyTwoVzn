@@ -1,0 +1,57 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+                   * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        #floating-panel {
+            position: absolute;
+            top: 10px;
+            left: 25%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: "Roboto", "sans-serif";
+            line-height: 30px;
+            padding-left: 10px;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNUqv6D-M9DKF2UAqZZUUTvTUGO3L1VrU&callback=initMap&libraries=&v=weekly"
+            defer></script>
+
+</head>
+<body>
+
+    @model IEnumerable<TwentyTwoVzn.Models.Service>
+
+
+
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 7,
+                center: { lat: 41.85, lng: -87.65 },
+            });
+            directionsRenderer.setMap(map);
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+
+        }
+
+        function calculateAndDisplayRoute() {
+
+        }
+    </script>
+</body>
+</html>

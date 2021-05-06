@@ -26,7 +26,15 @@ namespace TwentyTwoVzn.Controllers
         {
 
             ViewBag.TypeName = db.ServiceTypes.Find(id).TypeName;
+            ViewBag.id = id;
             return View(db.Services.Where(x => x.TypeID == id).ToList());
+        }
+        [HttpGet]
+        public JsonResult  serviceApi(int id)
+        {
+
+       
+            return new JsonResult { Data = new { services = db.Services.Where(x => x.TypeID == id).ToList() }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         public ActionResult Items(int id)

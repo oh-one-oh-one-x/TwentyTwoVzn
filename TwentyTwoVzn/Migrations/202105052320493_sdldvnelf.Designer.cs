@@ -7,13 +7,13 @@ namespace TwentyTwoVzn.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class dfkgnkfgfg : IMigrationMetadata
+    public sealed partial class sdldvnelf : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dfkgnkfgfg));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(sdldvnelf));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105052155571_dfkgnkfgfg"; }
+            get { return "202105052320493_sdldvnelf"; }
         }
         
         string IMigrationMetadata.Source

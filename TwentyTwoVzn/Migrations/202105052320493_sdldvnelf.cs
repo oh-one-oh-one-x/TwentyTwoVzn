@@ -3,7 +3,7 @@ namespace TwentyTwoVzn.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ddfdf : DbMigration
+    public partial class sdldvnelf : DbMigration
     {
         public override void Up()
         {
@@ -12,11 +12,12 @@ namespace TwentyTwoVzn.Migrations
                 c => new
                     {
                         BusID = c.Int(nullable: false, identity: true),
-                        BusName = c.String(),
-                        BusLocation = c.String(),
+                        BusName = c.String(nullable: false),
+                        BusLocation = c.String(nullable: false),
                         BusContact = c.Int(nullable: false),
-                        BusOwner = c.String(),
-                        BusInfo = c.String(),
+                        BusOwner = c.String(nullable: false),
+                        BusInfo = c.String(nullable: false),
+                        UserId = c.String(),
                     })
                 .PrimaryKey(t => t.BusID);
             
@@ -25,28 +26,63 @@ namespace TwentyTwoVzn.Migrations
                 c => new
                     {
                         EventID = c.Int(nullable: false, identity: true),
-                        EventName = c.String(),
+                        EventName = c.String(nullable: false),
                         EventDate = c.DateTime(nullable: false),
-                        Host = c.String(),
+                        Host = c.String(nullable: false),
+                        Image = c.Binary(),
                         EventFee = c.Double(nullable: false),
                         EventCapacity = c.Int(nullable: false),
                         EventStatus = c.String(),
-                        Location = c.String(),
+                        Location = c.String(nullable: false),
+                        BusinessID = c.Int(nullable: false),
+                        Business_BusID = c.Int(),
                     })
-                .PrimaryKey(t => t.EventID);
+                .PrimaryKey(t => t.EventID)
+                .ForeignKey("dbo.Businesses", t => t.Business_BusID)
+                .Index(t => t.Business_BusID);
             
             CreateTable(
                 "dbo.Items",
                 c => new
                     {
                         ItemID = c.Int(nullable: false, identity: true),
-                        ItemName = c.Int(nullable: false),
+                        ItemName = c.String(nullable: false),
                         ItemImage = c.Binary(),
                         ItemPrice = c.Double(nullable: false),
-                        ItemDetails = c.String(),
-                        ItemOrder = c.Boolean(nullable: false),
+                        ItemDetails = c.String(nullable: false),
+                        ServiceID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ItemID);
+                .PrimaryKey(t => t.ItemID)
+                .ForeignKey("dbo.Services", t => t.ServiceID, cascadeDelete: true)
+                .Index(t => t.ServiceID);
+            
+            CreateTable(
+                "dbo.Services",
+                c => new
+                    {
+                        ServiceID = c.Int(nullable: false, identity: true),
+                        ServiceName = c.String(nullable: false),
+                        ServiceDetails = c.String(nullable: false),
+                        ServiceImage = c.Binary(),
+                        ServiceLocation = c.String(nullable: false),
+                        TypeID = c.Int(nullable: false),
+                        BusinessID = c.Int(nullable: false),
+                        Business_BusID = c.Int(),
+                    })
+                .PrimaryKey(t => t.ServiceID)
+                .ForeignKey("dbo.Businesses", t => t.Business_BusID)
+                .ForeignKey("dbo.ServiceTypes", t => t.TypeID, cascadeDelete: true)
+                .Index(t => t.TypeID)
+                .Index(t => t.Business_BusID);
+            
+            CreateTable(
+                "dbo.ServiceTypes",
+                c => new
+                    {
+                        TypeID = c.Int(nullable: false, identity: true),
+                        TypeName = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.TypeID);
             
             CreateTable(
                 "dbo.Reserves",
@@ -67,7 +103,7 @@ namespace TwentyTwoVzn.Migrations
                 c => new
                     {
                         ReviewID = c.Int(nullable: false, identity: true),
-                        Comment = c.String(),
+                        Comment = c.String(nullable: false),
                         ReviewDate = c.DateTime(nullable: false),
                         Rating = c.Int(nullable: false),
                         ServiceID = c.Int(nullable: false),
@@ -75,36 +111,6 @@ namespace TwentyTwoVzn.Migrations
                 .PrimaryKey(t => t.ReviewID)
                 .ForeignKey("dbo.Services", t => t.ServiceID, cascadeDelete: true)
                 .Index(t => t.ServiceID);
-            
-            CreateTable(
-                "dbo.Services",
-                c => new
-                    {
-                        ServiceID = c.Int(nullable: false, identity: true),
-                        ServiceName = c.String(nullable: false),
-                        ServiceDetails = c.String(),
-                        ServiceImage = c.Binary(),
-                        ServiceLocation = c.String(),
-                        ServiceTypeID = c.Int(nullable: false),
-                        ReviewID = c.Int(nullable: false),
-                        BusinessID = c.Int(nullable: false),
-                        Business_BusID = c.Int(),
-                        ServiceTypes_TypeID = c.Int(),
-                    })
-                .PrimaryKey(t => t.ServiceID)
-                .ForeignKey("dbo.Businesses", t => t.Business_BusID)
-                .ForeignKey("dbo.ServiceTypes", t => t.ServiceTypes_TypeID)
-                .Index(t => t.Business_BusID)
-                .Index(t => t.ServiceTypes_TypeID);
-            
-            CreateTable(
-                "dbo.ServiceTypes",
-                c => new
-                    {
-                        TypeID = c.Int(nullable: false, identity: true),
-                        TypeName = c.String(),
-                    })
-                .PrimaryKey(t => t.TypeID);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -134,6 +140,10 @@ namespace TwentyTwoVzn.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        FirstName = c.String(),
+                        LastName = c.String(),
+                        EmailAddress = c.String(),
+                        Phone = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -182,29 +192,33 @@ namespace TwentyTwoVzn.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Services", "ServiceTypes_TypeID", "dbo.ServiceTypes");
             DropForeignKey("dbo.Reviews", "ServiceID", "dbo.Services");
-            DropForeignKey("dbo.Services", "Business_BusID", "dbo.Businesses");
             DropForeignKey("dbo.Reserves", "EventID", "dbo.Events");
+            DropForeignKey("dbo.Items", "ServiceID", "dbo.Services");
+            DropForeignKey("dbo.Services", "TypeID", "dbo.ServiceTypes");
+            DropForeignKey("dbo.Services", "Business_BusID", "dbo.Businesses");
+            DropForeignKey("dbo.Events", "Business_BusID", "dbo.Businesses");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Services", new[] { "ServiceTypes_TypeID" });
-            DropIndex("dbo.Services", new[] { "Business_BusID" });
             DropIndex("dbo.Reviews", new[] { "ServiceID" });
             DropIndex("dbo.Reserves", new[] { "EventID" });
+            DropIndex("dbo.Services", new[] { "Business_BusID" });
+            DropIndex("dbo.Services", new[] { "TypeID" });
+            DropIndex("dbo.Items", new[] { "ServiceID" });
+            DropIndex("dbo.Events", new[] { "Business_BusID" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.ServiceTypes");
-            DropTable("dbo.Services");
             DropTable("dbo.Reviews");
             DropTable("dbo.Reserves");
+            DropTable("dbo.ServiceTypes");
+            DropTable("dbo.Services");
             DropTable("dbo.Items");
             DropTable("dbo.Events");
             DropTable("dbo.Businesses");

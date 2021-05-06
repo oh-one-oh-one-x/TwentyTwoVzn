@@ -180,59 +180,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104301315092_ddfdf.cs" />
-    <Compile Include="Migrations\202104301315092_ddfdf.Designer.cs">
-      <DependentUpon>202104301315092_ddfdf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104301427095_csdfcds.cs" />
-    <Compile Include="Migrations\202104301427095_csdfcds.Designer.cs">
-      <DependentUpon>202104301427095_csdfcds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104301501559_dsfdksfd.cs" />
-    <Compile Include="Migrations\202104301501559_dsfdksfd.Designer.cs">
-      <DependentUpon>202104301501559_dsfdksfd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105021510595_xced.cs" />
-    <Compile Include="Migrations\202105021510595_xced.Designer.cs">
-      <DependentUpon>202105021510595_xced.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105021852327_sf.cs" />
-    <Compile Include="Migrations\202105021852327_sf.Designer.cs">
-      <DependentUpon>202105021852327_sf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105021916053_fdsfgd.cs" />
-    <Compile Include="Migrations\202105021916053_fdsfgd.Designer.cs">
-      <DependentUpon>202105021916053_fdsfgd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105021922034_rfgr.cs" />
-    <Compile Include="Migrations\202105021922034_rfgr.Designer.cs">
-      <DependentUpon>202105021922034_rfgr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105050605320_required.cs" />
-    <Compile Include="Migrations\202105050605320_required.Designer.cs">
-      <DependentUpon>202105050605320_required.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105051250517_xs.cs" />
-    <Compile Include="Migrations\202105051250517_xs.Designer.cs">
-      <DependentUpon>202105051250517_xs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105051335009_sfers.cs" />
-    <Compile Include="Migrations\202105051335009_sfers.Designer.cs">
-      <DependentUpon>202105051335009_sfers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105051854402_dfkgnkfg.cs" />
-    <Compile Include="Migrations\202105051854402_dfkgnkfg.Designer.cs">
-      <DependentUpon>202105051854402_dfkgnkfg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105052155571_dfkgnkfgfg.cs" />
-    <Compile Include="Migrations\202105052155571_dfkgnkfgfg.Designer.cs">
-      <DependentUpon>202105052155571_dfkgnkfgfg.cs</DependentUpon>
+    <Compile Include="Migrations\202105052320493_sdldvnelf.cs" />
+    <Compile Include="Migrations\202105052320493_sdldvnelf.Designer.cs">
+      <DependentUpon>202105052320493_sdldvnelf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Business.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Reserve.cs" />
+    <Compile Include="Models\ServicesViewModel.cs" />
     <Compile Include="Models\ServiceType.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -422,6 +379,7 @@
     <Content Include="Views\Events\Past.cshtml" />
     <Content Include="Views\Events\Upcoming.cshtml" />
     <Content Include="Views\Events\Reserve.cshtml" />
+    <Content Include="Views\Shared\_map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -440,41 +398,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202104301315092_ddfdf.resx">
-      <DependentUpon>202104301315092_ddfdf.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104301427095_csdfcds.resx">
-      <DependentUpon>202104301427095_csdfcds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104301501559_dsfdksfd.resx">
-      <DependentUpon>202104301501559_dsfdksfd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105021510595_xced.resx">
-      <DependentUpon>202105021510595_xced.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105021852327_sf.resx">
-      <DependentUpon>202105021852327_sf.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105021916053_fdsfgd.resx">
-      <DependentUpon>202105021916053_fdsfgd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105021922034_rfgr.resx">
-      <DependentUpon>202105021922034_rfgr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105050605320_required.resx">
-      <DependentUpon>202105050605320_required.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105051250517_xs.resx">
-      <DependentUpon>202105051250517_xs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105051335009_sfers.resx">
-      <DependentUpon>202105051335009_sfers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105051854402_dfkgnkfg.resx">
-      <DependentUpon>202105051854402_dfkgnkfg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105052155571_dfkgnkfgfg.resx">
-      <DependentUpon>202105052155571_dfkgnkfgfg.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105052320493_sdldvnelf.resx">
+      <DependentUpon>202105052320493_sdldvnelf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

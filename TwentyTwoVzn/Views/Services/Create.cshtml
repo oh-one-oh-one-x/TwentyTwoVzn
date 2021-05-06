@@ -10,6 +10,7 @@
 @using (Html.BeginForm(null, null, System.Web.Mvc.FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    <input type="hidden" name="BusinessID" value="@ViewBag.BusinessID" />
 
     <div class="form-horizontal">
         <h4>Service</h4>
@@ -55,12 +56,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BusinessID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-            <input type="hidden" name="BusinessID" value="@ViewBag.BusinessID" />
-            </div>
-        </div>
+       
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -75,15 +71,15 @@
 </div>
 
 @*<script src="~/Scripts/jquery-3.4.1.js"></script>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script>
-    var clickUpload = function () {
-        $(#upload).click();
-    }
-    $(document).ready(function () {
-        $('.pic').click(function () {
-            $(this).clone().appendTo('#result');
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        var clickUpload = function () {
+            $(#upload).click();
+        }
+        $(document).ready(function () {
+            $('.pic').click(function () {
+                $(this).clone().appendTo('#result');
 
+            })
         })
-    })
-</script>*@
+    </script>*@
