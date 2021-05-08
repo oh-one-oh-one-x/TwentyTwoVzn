@@ -64,6 +64,8 @@
         </div>
     </div>
 
+    @using Microsoft.AspNet.Identity
+
     <header class="">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
@@ -74,14 +76,14 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
 
-                        <li class="has-children">
+                        @*<li class="has-children">
 
-                            <ul class="dropdown">
+            <ul class="dropdown">
 
-                                <li><a href="/Account/Login">Log In</a></li>
-                                <li><a href="/Account/Register">Register</a></li>
-                            </ul>
-                        </li>
+                <li><a href="/Account/Login">Log In</a></li>
+                <li><a href="/Account/Register">Register</a></li>
+            </ul>
+        </li>*@
                         <li class="nav-item">
                             <partial name="_LoginPartial" />
                         </li>
@@ -100,8 +102,27 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home/Events/">Events Around The Corner</a>
+                            <a class="nav-link" href="/Home/Events/">Events</a>
                         </li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">@User.Identity.GetUserName()</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/LogOff">Log out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Register">Register</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Login">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -199,7 +220,7 @@
 
             var span = "#distance-" + id;
             const matrix = new google.maps.DistanceMatrixService();
-            console.log( 'location'+location)
+            console.log('location' + location)
             matrix.getDistanceMatrix({
                 origins: ["122B Florida Rd, Windermere, Berea"],
                 destinations: [location],
@@ -207,8 +228,8 @@
             }, function (response, status) {
                 console.log(response);
                 //console.log(response.originAddresses);
-                    var distance = response.rows[0].elements;
-                    $(span).html(distance[0].distance.text);
+                var distance = response.rows[0].elements;
+                $(span).html(distance[0].distance.text);
             });
         }
         var GetDistance = function (response) {

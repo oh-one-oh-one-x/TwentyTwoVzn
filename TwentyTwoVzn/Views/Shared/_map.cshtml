@@ -37,21 +37,35 @@
 
     <div id="map"></div>
     <script>
+        var map;
         function initMap() {
-            const directionsService = new google.maps.DirectionsService();
-            const directionsRenderer = new google.maps.DirectionsRenderer();
-            const map = new google.maps.Map(document.getElementById("map"), {
+
+             map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 7,
-                center: { lat: 41.85, lng: -87.65 },
+                center: { lat: 11.5564, lng: 104.9282 },
             });
-            directionsRenderer.setMap(map);
-            calculateAndDisplayRoute(directionsService, directionsRenderer);
+            var marker = new google.maps.Marker({
+                position: { lat: 11.9924, lng: 105.4645 },
+                map: map,
+                icon: 'pin.png',
+            });
 
         }
+        //call marker function
+        //addMarker({ lat: 11.5564, lng: 104.9282 });
+        //addMarker({ lat: 11.2237, lng: 105.1259 });
+        //addMarker({ lat: 13.3550, lng: 103.8552 });
+        //addMarker({ lat: 11.9924, lng: 105.4645 });
 
-        function calculateAndDisplayRoute() {
-
-        }
+        ////add marker function
+        //function addMarker(coords) {
+        //    var marker = new google.maps.Marker({
+        //        position: coords,
+        //        map: map,
+        //        icon: 'pin.png',
+        //    });
+        //}
+                
     </script>
 </body>
 </html>

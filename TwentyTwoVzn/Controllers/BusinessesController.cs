@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using TwentyTwoVzn.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Threading.Tasks;
 
 namespace TwentyTwoVzn.Controllers
 {
@@ -15,6 +17,42 @@ namespace TwentyTwoVzn.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public BusinessesController()
+        {
+        }
+
+        public BusinessesController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Businesses
         [Authorize]
         public ActionResult Index()
@@ -49,13 +87,14 @@ namespace TwentyTwoVzn.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BusID,BusName,BusLocation,BusContact,BusOwner,BusInfo")] Business business)
+        public async Task<ActionResult> CreateAsync([Bind(Include = "BusID,BusName,BusLocation,BusContact,BusOwner,BusInfo")] Business business)
         {
             if (ModelState.IsValid)
             {
                 business.UserId = User.Identity.GetUserId();
                 db.Businesses.Add(business);
                 db.SaveChanges();
+                await AdduserToRole();
                 return RedirectToAction("Index");
             }
 
@@ -117,6 +156,15 @@ namespace TwentyTwoVzn.Controllers
             db.Businesses.Remove(business);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public async Task AdduserToRole()
+        {
+            var userId = User.Identity.GetUserId();
+           var  result = await  UserManager.AddToRoleAsync(userId, "Business"); 
+            if (!result.Succeeded)
+            {
+                var Errors = result.Errors;  
+            }
         }
 
         protected override void Dispose(bool disposing)

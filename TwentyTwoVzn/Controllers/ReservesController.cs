@@ -37,7 +37,7 @@ namespace TwentyTwoVzn.Controllers
         }
 
         // GET: Reserves/Create
-        public ActionResult Create()
+        public ActionResult Create( )
         {
             ViewBag.EventID = new SelectList(db.Events, "EventID", "EventName");
             return View();

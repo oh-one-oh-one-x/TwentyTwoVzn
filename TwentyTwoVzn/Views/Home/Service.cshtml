@@ -19,22 +19,23 @@
         </div>
     </div>
 </div>
-
-<div class="row" style="margin-top:20px;">
-    <div class="single-services com-md-6">
-        <div class="container">
+<div class="single-services">
+    <div class="row">
+        <div class="col-md-6">
             <div class="row" id="tabs">
-                @foreach (var item in Model)
-                {
-                    <div class="col-md-4">
-                        <ul>
-                            <li><a href='#tabs-1'>@item.ServiceName <i class="fa fa-angle-right"></i></a></li>
-
-                        </ul>
-                    </div>
-                    <div class="col-md-8">
-                        <section class='tabs-content'>
-                            <article id='tabs-1'>
+                <div class="col-md-4">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li><a href='#tabs-@item.ServiceID'>@item.ServiceName <i class="fa fa-angle-right"></i></a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <section class='tabs-content'>
+                        @foreach (var item in Model)
+                        {
+                            <article id='tabs-@item.ServiceID'>
                                 @if (item.ServiceImage != null)
                                 {
                                     var base64 = Convert.ToBase64String(item.ServiceImage);
@@ -54,20 +55,17 @@
                                     <a href="/Home/Items/?id=@item.ServiceID" class="filled-button">Browse Items</a>
                                     <a href="/Home/Items/?id=@item.ServiceID" class="btn btn-lg btn-outline-primary">Browse Items</a>
                                 </p>
-
                             </article>
-
-                        </section>
-                    </div>
-                }
+                        }
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        @Html.Partial("_map", Model)
+        <div class="col-md-6">
+            @Html.Partial("_map", Model)
+        </div>
     </div>
 </div>
-
 <div class="callback-form callback-services">
     <div class="container">
         <div class="row">

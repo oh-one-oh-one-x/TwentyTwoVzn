@@ -184,6 +184,14 @@
     <Compile Include="Migrations\202105052320493_sdldvnelf.Designer.cs">
       <DependentUpon>202105052320493_sdldvnelf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105072135273_zwelsyugef.cs" />
+    <Compile Include="Migrations\202105072135273_zwelsyugef.Designer.cs">
+      <DependentUpon>202105072135273_zwelsyugef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105072347530_zwelsyugeffsfg.cs" />
+    <Compile Include="Migrations\202105072347530_zwelsyugeffsfg.Designer.cs">
+      <DependentUpon>202105072347530_zwelsyugeffsfg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Business.cs" />
@@ -380,6 +388,8 @@
     <Content Include="Views\Events\Upcoming.cshtml" />
     <Content Include="Views\Events\Reserve.cshtml" />
     <Content Include="Views\Shared\_map.cshtml" />
+    <Content Include="Views\Home\Reserve.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -400,6 +410,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105052320493_sdldvnelf.resx">
       <DependentUpon>202105052320493_sdldvnelf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105072135273_zwelsyugef.resx">
+      <DependentUpon>202105072135273_zwelsyugef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105072347530_zwelsyugeffsfg.resx">
+      <DependentUpon>202105072347530_zwelsyugeffsfg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
