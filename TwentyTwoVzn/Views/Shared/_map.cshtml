@@ -71,7 +71,7 @@
                 infowindow1.open(map, marker1);
             });
 
-            const contentString1 =
+            const contentString2 =
                 '<div id="content">' +
                 '<div id="siteNotice">' +
                 "</div>" +
@@ -82,21 +82,21 @@
                 "</div>" +
                 "</div>";
 
-            const infowindow1 = new google.maps.InfoWindow({
-                content: contentString1,
+            const infowindow2 = new google.maps.InfoWindow({
+                content: contentString2,
             });
-            var position3 = { lat: -29.8587, lng: 31.0218 };
-            const marker3 = new google.maps.Marker({
+            var position2 = { lat: -29.8587, lng: 31.0218 };
+            const marker2 = new google.maps.Marker({
                 position: position3,
                 map,
                 title: "resturant",
             });
-            marker3.addListener("click", () => {
-                infowindow1.open(map, marker3);
+            marker2.addListener("click", () => {
+                infowindow2.open(map, marker2);
             });
 
             //End Markert
-            const contentString2 =
+            const contentString3 =
                 '<div id="content">' +
                 '<div id="siteNotice">' +
                 "</div>" +
@@ -107,17 +107,17 @@
                 "</div>" +
                 "</div>";
 
-            const infowindow2 = new google.maps.InfoWindow({
-                content: contentString2,
+            const infowindow3 = new google.maps.InfoWindow({
+                content: contentString3,
             });
-            var position2 = { lat: -29.8623481, lng: 31.0130304 };
-            const marker2 = new google.maps.Marker({
-                position: position2,
+            var position3 = { lat: -29.8623481, lng: 31.0130304 };
+            const marker3 = new google.maps.Marker({
+                position: position3,
                 map,
                 title: "barber",
             });
-            marker2.addListener("click", () => {
-                infowindow2.open(map, marker2);
+            marker3.addListener("click", () => {
+                infowindow2.open(map, marker3);
             });
 
         }
