@@ -7,13 +7,14 @@ using System.Data.Entity;
 using TwentyTwoVzn.Models;
 using Microsoft.AspNet.Identity;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace TwentyTwoVzn.Controllers
 {
     public class HomeController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-       
+        JsonSerializerSettings _jsonSetting = new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore };
         public ActionResult Index()
         {
             if (User.IsInRole("Business"))
@@ -33,10 +34,12 @@ namespace TwentyTwoVzn.Controllers
             ViewBag.id = id;
             return View(db.Services.Where(x => x.TypeID == id).ToList());
         }
+
         [HttpGet]
-        public JsonResult  serviceApi(int id)
-        {   
-            return new JsonResult { Data = new { services = db.Services.Where(x => x.TypeID == id).ToList() }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        public ContentResult serviceApi(int id)
+        {
+            return Content(JsonConvert.SerializeObject(db.Services.Where(x => x.TypeID ==id ).ToList(), _jsonSetting), "application/json");
+
         }
 
         public ActionResult Items(int id)
