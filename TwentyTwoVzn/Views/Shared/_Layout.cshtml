@@ -23,12 +23,21 @@
     <link href="~/css/templatemo-finance-business.css" rel="stylesheet" />
     <link href="~/css/owl.css" rel="stylesheet" />
     <!--
-
+        
     Finance Business TemplateMo
 
     https://templatemo.com/tm-545-finance-business
 
     -->
+<style>
+    .show-on-hover:hover > ul.dropdown-menu {
+        display: block;
+        position:relative;
+        margin-top:-65px;
+        background-color:transparent;
+      
+    }
+</style>
 </head>
 
 <body>
@@ -91,12 +100,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/Home/About">About Us</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item show-on-hover">
                             <a class="nav-link" href="#">What We Offer</a>
-                            <ul class="dropdown">
+                            <ul  class="dropdown-menu" role="menu">
                                 @foreach (var item in db.ServiceTypes.ToList())
                                 {
-                                    <li><a href="/Home/Service/?id=@item.TypeID">@item.TypeName</a></li>
+                                    <li><a class="nav-link" href="/Home/Service/?id=@item.TypeID">@item.TypeName</a></li>
                                 }
                             </ul>
 
@@ -211,6 +220,29 @@
                     Getmap(data.services[i].ServiceID, data.services[i].ServiceLocation)
             }
         });
+        setTimeout(function () {
+
+            var counter = 0;
+            $('.has-children').each(function () {
+                var $this = $(this);
+
+                $this.prepend('<span class="arrow-collapse collapsed">');
+
+                $this.find('.arrow-collapse').attr({
+                    'data-toggle': 'collapse',
+                    'data-target': '#collapseItem' + counter,
+                });
+
+                $this.find('> ul').attr({
+                    'class': 'collapse',
+                    'id': 'collapseItem' + counter,
+                });
+
+                counter++;
+
+            });
+
+        }, 1000);
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2wxSVxmBm6Wpy8sqXoLUL6tyrROtxh8&callback=initMap&libraries=&v=weekly"
@@ -222,7 +254,7 @@
             const matrix = new google.maps.DistanceMatrixService();
             console.log('location' + location)
             matrix.getDistanceMatrix({
-                origins: ["122B Florida Rd, Windermere, Berea"],
+                origins: ["@ViewBag.address"],
                 destinations: [location],
                 travelMode: google.maps.TravelMode.DRIVING,
             }, function (response, status) {

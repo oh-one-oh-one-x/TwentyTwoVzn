@@ -76,6 +76,10 @@ namespace TwentyTwoVzn.Models
         [Required]
         [Display(Name = "Address")]
         public string Address { get; set; }
+           [Required]
+        [Display(Name = "Role")]
+        public string Role { get; set; }
+
 
 
         [Required]

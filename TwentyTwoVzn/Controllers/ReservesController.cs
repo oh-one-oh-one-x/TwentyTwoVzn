@@ -20,7 +20,11 @@ namespace TwentyTwoVzn.Controllers
             var reserves = db.Reserves.Include(r => r.Event);
             return View(reserves.ToList());
         }
-
+        public ActionResult ListofReservationd(int id)
+        {
+            var reserves = db.Reserves.Where(x=>x.EventID==id).Include(r => r.Event);
+            return View(reserves.ToList());
+        }
         // GET: Reserves/Details/5
         public ActionResult Details(int? id)
         {

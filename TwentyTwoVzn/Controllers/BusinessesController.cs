@@ -94,7 +94,7 @@ namespace TwentyTwoVzn.Controllers
                 business.UserId = User.Identity.GetUserId();
                 db.Businesses.Add(business);
                 db.SaveChanges();
-                await AdduserToRole();
+               
                 return RedirectToAction("Index");
             }
 
@@ -157,15 +157,7 @@ namespace TwentyTwoVzn.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public async Task AdduserToRole()
-        {
-            var userId = User.Identity.GetUserId();
-           var  result = await  UserManager.AddToRoleAsync(userId, "Business"); 
-            if (!result.Succeeded)
-            {
-                var Errors = result.Errors;  
-            }
-        }
+     
 
         protected override void Dispose(bool disposing)
         {

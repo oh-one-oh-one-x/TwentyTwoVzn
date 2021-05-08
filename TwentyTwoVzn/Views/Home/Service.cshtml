@@ -1,12 +1,16 @@
 ﻿@model IEnumerable<TwentyTwoVzn.Models.Service>
 @using Newtonsoft.Json;
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Service";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    TwentyTwoVzn.Models.ApplicationDbContext db = new TwentyTwoVzn.Models.ApplicationDbContext();
 
     var jsonString = JsonConvert.SerializeObject(Model.Select(x => new TwentyTwoVzn.Models.Service { ServiceID = x.ServiceID, ServiceLocation = x.ServiceLocation }));
+  
 }
+
 
 <!-- Page Content -->
 <div class="page-heading header-text">
@@ -47,8 +51,9 @@
                                 <p>
                                     @item.ServiceDetails
                                     <br>
-                                    @item.ServiceLocation
+                                  
                                     <div>Location :<span>@item.ServiceLocation </span> </div>
+                                    <div>From :<span>@ViewBag.address </span> </div>
 
                                     <br>
                                     <div>Distance :<span id="distance-@item.ServiceID"></span> </div>

@@ -390,6 +390,7 @@
     <Content Include="Views\Shared\_map.cshtml" />
     <Content Include="Views\Home\Reserve.cshtml" />
     <Content Include="Views\Home\Success.cshtml" />
+    <Content Include="Views\Reserves\ListofReservationd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

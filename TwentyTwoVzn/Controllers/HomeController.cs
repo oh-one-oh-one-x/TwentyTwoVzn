@@ -26,7 +26,9 @@ namespace TwentyTwoVzn.Controllers
         //[Authorize]
         public ActionResult Service(int id)
         {
-
+            string userid = User.Identity.GetUserId();
+            var user = db.Users.Find(userid);
+            ViewBag.address = user.Address;
             ViewBag.TypeName = db.ServiceTypes.Find(id).TypeName;
             ViewBag.id = id;
             return View(db.Services.Where(x => x.TypeID == id).ToList());
@@ -45,7 +47,16 @@ namespace TwentyTwoVzn.Controllers
 
         public ActionResult Reserve(int EventId)
         {
+            ViewBag.max = 0;
+           var currentnumberOfReservations = db.Reserves.Where(x => x.EventID == EventId).Select(x => x.NumAttendees).Sum();
+            var cap = db.Events.Find(EventId);
+            int maximum = (cap.EventCapacity - currentnumberOfReservations);
+            if ( maximum<= 4)
+            {
+                ViewBag.max = maximum;
+            }
             return View(new Reserve { EventID = EventId, Event = db.Events.Find(EventId) });
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -53,30 +64,34 @@ namespace TwentyTwoVzn.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                var currentnumberOfReservations = db.Reserves.Where(x => x.EventID == reserve.EventID).Select(x => x.NumAttendees).Sum();
                 var cap = db.Events.Find(reserve.EventID);
-                if (cap.EventCapacity > 0 && cap.EventDate >= DateTime.Now)
+                if (cap.EventCapacity > currentnumberOfReservations && cap.EventDate >= DateTime.Now)
                 {
 
+                    reserve.ReserveDate = DateTime.Now;
+                    reserve.UserId = User.Identity.GetUserId();
+                    db.Entry(cap).State = EntityState.Modified;
+                    db.Reserves.Add(reserve);
+                    db.SaveChanges();
+                    var userE = User.Identity.Name.ToString();
+                    Email email = new Email();
+                    email.To = userE;
+                    email.Subject = "Event Reservation Successful";
+                    email.Body = ConvertPartialViewToString(PartialView("_Email", reserve));
+                    try { email.Sendmail(); }
+                    catch
+                    {
+                       
+                    }
+                    return View("Success");
                     cap.EventCapacity -= reserve.NumAttendees;
                     if (cap.EventCapacity == 0)
                     {
                         cap.EventStatus = "Full Capacity";
                     }
                 }
-                reserve.ReserveDate = DateTime.Now;
-                db.Entry(cap).State = EntityState.Modified;
-                db.Reserves.Add(reserve);
-                db.SaveChanges();
-                var userE = User.Identity.Name.ToString();
-                Email email = new Email();
-                email.To = userE;
-                email.Subject = "Event Reservation Successful";
-                email.Body = ConvertPartialViewToString(PartialView("_Email", reserve));
-                try { email.Sendmail(); }
-                catch { 
-                }
-                return View("Success");
+               
             }
           
             return View(reserve);

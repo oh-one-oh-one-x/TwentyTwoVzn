@@ -68,7 +68,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.EventID }) |
             @Html.ActionLink("Details", "Details", new { id=item.EventID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EventID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.EventID })|
+            <a href="/Reserves/ListofReservationd/?id=@item.EventID">Reservations</a>
         </td>
     </tr>
 }

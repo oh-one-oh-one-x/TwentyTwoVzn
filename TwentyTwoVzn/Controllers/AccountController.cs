@@ -155,6 +155,7 @@ namespace TwentyTwoVzn.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                   await AdduserToRole(model.Role, user.Id);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -171,7 +172,14 @@ namespace TwentyTwoVzn.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
+        public async Task AdduserToRole(string role, string userid)
+        {
+            var result = await UserManager.AddToRoleAsync(userid, role);
+            if (!result.Succeeded)
+            {
+                var Errors = result.Errors;
+            }
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
