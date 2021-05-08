@@ -215,9 +215,9 @@
 
         },
             function (data) {
-                console.log(data.services)
-                for (let i = 0; i < data.services.length; i++) {
-                    Getmap(data.services[i].ServiceID, data.services[i].ServiceLocation)
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    Getmap(data[i].ServiceID, data[i].ServiceLocation)
             }
         });
         setTimeout(function () {
