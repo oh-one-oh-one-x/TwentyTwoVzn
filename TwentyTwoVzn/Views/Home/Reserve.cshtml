@@ -1,0 +1,70 @@
+﻿@model TwentyTwoVzn.Models.Reserve
+
+@{
+    ViewBag.Title = "Reserve";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-heading header-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Events Reservation</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section style="margin:20px;">
+    <div class="container justify-content-center">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" name="EventID" value="@Model.Event.EventID" />
+            <div class="form-horizontal col-md-8">
+                <h4>Event Reservation For @Model.Event.EventName</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EventID, "Event Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" value="@Model.Event.EventName" readonly />
+                        @Html.ValidationMessageFor(model => model.EventID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumAttendees, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select class="form-control" name="NumAttendees">
+                            @if ((int)ViewBag.max == 0)
+                            {
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            }
+                            else
+                            {
+                                for (int i = 1; i <= (int)ViewBag.max; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+
+                        </select>
+                        @Html.ValidationMessageFor(model => model.NumAttendees, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Reserve" class="btn btn-outline-secondary" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</section>

@@ -39,9 +39,10 @@ namespace TwentyTwoVzn.Controllers
         }
 
         // GET: Events/Create
-        public ActionResult Create(int businessId)
+        public ActionResult Create()
         {
-            ViewBag.BusinessID = (int)businessId;
+            var userid = User.Identity.GetUserId();    
+            ViewBag.BusID = new SelectList(db.Businesses.Where(x => x.UserId == userid).ToList(), "BusID", "BusName");
             return View();
         }
 
@@ -50,7 +51,7 @@ namespace TwentyTwoVzn.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EventID,EventName,EventDate,Host,EventFee,EventCapacity,EventStatus,Location,BusinessID")] Event @event)
+        public ActionResult Create([Bind(Include = "EventID,EventName,EventDate,Host,EventFee,EventCapacity,EventStatus,Location,BusID")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +60,7 @@ namespace TwentyTwoVzn.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BusinessID = new SelectList(db.Businesses, "BusinessID", "BusName");
+            ViewBag.BusinessID = new SelectList(db.Businesses, "BusID", "BusName");
             return View(@event);
         }
 
@@ -130,35 +131,26 @@ namespace TwentyTwoVzn.Controllers
             return RedirectToAction("Index");
         }
         [Authorize]
-        public ActionResult Reserve()
+
+        public ActionResult Reserve(int EventID)
         {
-            ViewBag.EventID = new SelectList(db.Events, "EventID", "EventName");
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Reserve([Bind(Include = "ReserveID,NumAttendees,ReserveDate,EventID,UserId")] Reserve reserve)
-        {
-            var cap = db.Events.Where(x => x.EventID == reserve.EventID).FirstOrDefault();
-            if(ModelState.IsValid)
+            var reserve = new Reserve { EventID = EventID, ReserveDate = DateTime.Now};
+            var cap = db.Events.Where(x => x.EventID == EventID).FirstOrDefault();
+            if (cap.EventCapacity > 0 && cap.EventDate >= DateTime.Now)
             {
-                if (cap.EventCapacity > 0 && cap.EventDate >= DateTime.Now)
+               
+                cap.EventCapacity -= reserve.NumAttendees;
+                if(cap.EventCapacity == 0)
                 {
-                    reserve.ReserveDate = DateTime.Now;
-                    cap.EventCapacity -= reserve.NumAttendees;
-                    if (cap.EventCapacity == 0)
-                    {
-                        cap.EventStatus = "Full Capacity";
-                    }
+                    cap.EventStatus = "Full Capacity";
                 }
-                db.Events.Add(cap);
-                db.Reserves.Add(reserve);
-                db.SaveChanges();
             }
-            
-            var userE = db.Users.Find(reserve.UserId);
+            db.Events.Add(cap);
+            db.Reserves.Add(reserve);
+            db.SaveChanges();
+            var userE = User.Identity.Name.ToString();
             Email email = new Email();
-            email.To = userE.Email;
+            email.To = userE;
             email.Subject = "Event Reservation Successful";
             email.Body = ConvertPartialViewToString(PartialView("_Email", reserve));
             email.Sendmail();

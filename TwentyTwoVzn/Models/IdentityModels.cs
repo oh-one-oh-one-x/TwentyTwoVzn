@@ -13,6 +13,7 @@ namespace TwentyTwoVzn.Models
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public string Phone { get; set; }
+        public string Address { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
 

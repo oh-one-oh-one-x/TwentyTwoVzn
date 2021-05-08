@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -63,6 +64,24 @@ namespace TwentyTwoVzn
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+        public void CreateRole()
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            IdentityRole role;
+            if (!roleManager.RoleExists("Business"))
+            {
+                role = new IdentityRole();
+                role.Name = "Business";
+                roleManager.Create(role);
+            }
+            if (!roleManager.RoleExists("Customer"))
+            {
+                role = new IdentityRole();
+                role.Name = "Customer";
+                roleManager.Create(role);
+            }
+
         }
     }
 }

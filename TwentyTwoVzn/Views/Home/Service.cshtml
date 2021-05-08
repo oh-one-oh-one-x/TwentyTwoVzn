@@ -1,12 +1,16 @@
 ﻿@model IEnumerable<TwentyTwoVzn.Models.Service>
 @using Newtonsoft.Json;
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Service";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    TwentyTwoVzn.Models.ApplicationDbContext db = new TwentyTwoVzn.Models.ApplicationDbContext();
 
     var jsonString = JsonConvert.SerializeObject(Model.Select(x => new TwentyTwoVzn.Models.Service { ServiceID = x.ServiceID, ServiceLocation = x.ServiceLocation }));
+  
 }
+
 
 <!-- Page Content -->
 <div class="page-heading header-text">
@@ -19,22 +23,23 @@
         </div>
     </div>
 </div>
-
-<div class="row" style="margin-top:20px;">
-    <div class="single-services com-md-6">
-        <div class="container">
+<div class="single-services">
+    <div class="row">
+        <div class="col-md-6">
             <div class="row" id="tabs">
-                @foreach (var item in Model)
-                {
-                    <div class="col-md-4">
-                        <ul>
-                            <li><a href='#tabs-1'>@item.ServiceName <i class="fa fa-angle-right"></i></a></li>
-
-                        </ul>
-                    </div>
-                    <div class="col-md-8">
-                        <section class='tabs-content'>
-                            <article id='tabs-1'>
+                <div class="col-md-4">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li><a href='#tabs-@item.ServiceID'>@item.ServiceName <i class="fa fa-angle-right"></i></a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <section class='tabs-content'>
+                        @foreach (var item in Model)
+                        {
+                            <article id='tabs-@item.ServiceID'>
                                 @if (item.ServiceImage != null)
                                 {
                                     var base64 = Convert.ToBase64String(item.ServiceImage);
@@ -46,27 +51,25 @@
                                 <p>
                                     @item.ServiceDetails
                                     <br>
-                                    @item.ServiceLocation
+                                  
                                     <div>Location :<span>@item.ServiceLocation </span> </div>
+                                    <div>From :<span>@ViewBag.address </span> </div>
 
                                     <br>
                                     <div>Distance :<span id="distance-@item.ServiceID"></span> </div>
                                     <a href="/Home/Items/?id=@item.ServiceID" class="filled-button">Browse Items</a>
                                 </p>
-
                             </article>
-
-                        </section>
-                    </div>
-                }
+                        }
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        @Html.Partial("_map", Model)
+        <div class="col-md-6">
+            @Html.Partial("_map", Model)
+        </div>
     </div>
 </div>
-
 <div class="callback-form callback-services">
     <div class="container">
         <div class="row">

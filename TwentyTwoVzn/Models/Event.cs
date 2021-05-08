@@ -30,7 +30,7 @@ namespace TwentyTwoVzn.Models
         [Display(Name = "Location")]
         [Required]
         public string Location { get; set; }
-        public int BusinessID { get; set; }
+        public int BusID { get; set; }
         public virtual Business Business { get; set; }
     }
 }
