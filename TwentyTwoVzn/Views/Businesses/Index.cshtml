@@ -40,8 +40,8 @@
         </td>
         
         <td>
-            <a href="/Services/Create/?businessId=@item.BusID">Create Service</a>
-            |
+            <a href="/Services/Create/?businessId=@item.BusID">Create Service</a> |
+            <a href="/Events/Create/?businessId=@item.BusID">Create an Event</a> |
             @Html.ActionLink("Details", "Details", new { id=item.BusID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.BusID })
         </td>

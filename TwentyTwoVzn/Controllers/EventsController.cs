@@ -39,9 +39,9 @@ namespace TwentyTwoVzn.Controllers
         }
 
         // GET: Events/Create
-        public ActionResult Create()
+        public ActionResult Create(int businessId)
         {
-            ViewBag.BusinessID = new SelectList(db.Businesses, "BusinessID", "BusName");
+            ViewBag.BusinessID = (int)businessId;
             return View();
         }
 
@@ -130,22 +130,32 @@ namespace TwentyTwoVzn.Controllers
             return RedirectToAction("Index");
         }
         [Authorize]
-
-        public ActionResult Reserve(Reserve reserve)
+        public ActionResult Reserve()
+        {
+            ViewBag.EventID = new SelectList(db.Events, "EventID", "EventName");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reserve([Bind(Include = "ReserveID,NumAttendees,ReserveDate,EventID,UserId")] Reserve reserve)
         {
             var cap = db.Events.Where(x => x.EventID == reserve.EventID).FirstOrDefault();
-            if (cap.EventCapacity > 0 && cap.EventDate >= DateTime.Now)
+            if(ModelState.IsValid)
             {
-                reserve.ReserveDate = DateTime.Now;
-                cap.EventCapacity -= reserve.NumAttendees;
-                if(cap.EventCapacity == 0)
+                if (cap.EventCapacity > 0 && cap.EventDate >= DateTime.Now)
                 {
-                    cap.EventStatus = "Full Capacity";
+                    reserve.ReserveDate = DateTime.Now;
+                    cap.EventCapacity -= reserve.NumAttendees;
+                    if (cap.EventCapacity == 0)
+                    {
+                        cap.EventStatus = "Full Capacity";
+                    }
                 }
+                db.Events.Add(cap);
+                db.Reserves.Add(reserve);
+                db.SaveChanges();
             }
-            db.Events.Add(cap);
-            db.Reserves.Add(reserve);
-            db.SaveChanges();
+            
             var userE = db.Users.Find(reserve.UserId);
             Email email = new Email();
             email.To = userE.Email;
