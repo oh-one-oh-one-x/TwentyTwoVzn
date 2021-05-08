@@ -25,8 +25,8 @@
         }
     </style>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNUqv6D-M9DKF2UAqZZUUTvTUGO3L1VrU&callback=initMap&libraries=&v=weekly"
-            defer></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNUqv6D-M9DKF2UAqZZUUTvTUGO3L1VrU&callback=initMap&libraries=&v=weekly"
+            defer></script>*@
 
 </head>
 <body>
@@ -40,7 +40,7 @@
        
         function initMap() {
 
-            var center = { lat: -29.8587, lng: 31.0218 };
+            var center = { lat: -29.9566822, lng: 30.9192381 };
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 15,
                 center: center,
@@ -51,9 +51,9 @@
                 '<div id="content">' +
                 '<div id="siteNotice">' +
                 "</div>" +
-                '<h1 id="firstHeading" class="firstHeading">Heading</h1>' +
+                '<h1 id="firstHeading" class="firstHeading">Eyadini Lounge</h1>' +
                 '<div id="bodyContent">' +
-                "<p> content</p>" +
+                "<p>Eyadini Lounge is one of KwaZulu-Natal’s most popular hangout venues and arguably, an important tourism hotspot for the province.</p>" +
                 
                 "</div>" +
                 "</div>";
@@ -71,23 +71,38 @@
                 infowindow1.open(map, marker1);
             });
 
+            const contentString1 =
+                '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h1 id="firstHeading" class="firstHeading">METRO GENTS LOUNGE</h1>' +
+                '<div id="bodyContent">' +
+                "<p>Nice meat, great djs, best place to hang out with ur friends bt this place needs renovations. - Zama Sangweni. </p>" +
+
+                "</div>" +
+                "</div>";
+
+            const infowindow1 = new google.maps.InfoWindow({
+                content: contentString1,
+            });
+            var position3 = { lat: -29.8587, lng: 31.0218 };
+            const marker3 = new google.maps.Marker({
+                position: position3,
+                map,
+                title: "resturant",
+            });
+            marker3.addListener("click", () => {
+                infowindow1.open(map, marker3);
+            });
+
             //End Markert
             const contentString2 =
                 '<div id="content">' +
                 '<div id="siteNotice">' +
                 "</div>" +
-                '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+                '<h1 id="firstHeading" class="firstHeading">Legends Barbershop Mega City</h1>' +
                 '<div id="bodyContent">' +
-                "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-                "sandstone rock formation in the southern part of the " +
-                "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
-                "south west of the nearest large town, Alice Springs; 450&#160;km " +
-                "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
-                "features of the Uluru - Kata Tjuta National Park. Uluru is " +
-                "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
-                "Aboriginal people of the area. It has many springs, waterholes, " +
-                "rock caves and ancient paintings. Uluru is listed as a World " +
-                "Heritage Site.</p>" +
+                "<p>Legends Barbershop provides you with a professional grooming service throughout South Africa, Gaborone (Botswana) and soon touching down on international soil. We also offer the Exclusive Legendary Mobile Service that brings the Exclusive Legendary Experience directly to your doorstep.</p>" +
                 
                 "</div>" +
                 "</div>";

@@ -7,13 +7,13 @@ namespace TwentyTwoVzn.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class zwelsyugef : IMigrationMetadata
+    public sealed partial class fc : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(zwelsyugef));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(fc));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105072135273_zwelsyugef"; }
+            get { return "202105081302111_fc"; }
         }
         
         string IMigrationMetadata.Source

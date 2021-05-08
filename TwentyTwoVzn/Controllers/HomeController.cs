@@ -34,10 +34,10 @@ namespace TwentyTwoVzn.Controllers
             return View(db.Services.Where(x => x.TypeID == id).ToList());
         }
         [HttpGet]
-        public JsonResult  serviceApi(int id)
-        {   
-            return new JsonResult { Data = new { services = db.Services.Where(x => x.TypeID == id).ToList() }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
+        public ActionResult  serviceApi(int id)
+        {
+            return Json(new { services = db.Services.Where(x => x.TypeID == id).ToList() }, JsonRequestBehavior.AllowGet);
+                }
 
         public ActionResult Items(int id)
         {
@@ -48,7 +48,7 @@ namespace TwentyTwoVzn.Controllers
         public ActionResult Reserve(int EventId)
         {
             ViewBag.max = 0;
-           var currentnumberOfReservations = db.Reserves.Where(x => x.EventID == EventId).Select(x => x.NumAttendees).Sum();
+           var currentnumberOfReservations = db.Reserves.Where(x => x.EventID == EventId).Select(x => x.NumAttendees).ToList().Sum();
             var cap = db.Events.Find(EventId);
             int maximum = (cap.EventCapacity - currentnumberOfReservations);
             if ( maximum<= 4)
@@ -64,7 +64,7 @@ namespace TwentyTwoVzn.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentnumberOfReservations = db.Reserves.Where(x => x.EventID == reserve.EventID).Select(x => x.NumAttendees).Sum();
+                var currentnumberOfReservations = db.Reserves.Where(x => x.EventID == reserve.EventID).Select(x => x.NumAttendees).ToList().Sum();
                 var cap = db.Events.Find(reserve.EventID);
                 if (cap.EventCapacity > currentnumberOfReservations && cap.EventDate >= DateTime.Now)
                 {
@@ -79,11 +79,12 @@ namespace TwentyTwoVzn.Controllers
                     email.To = userE;
                     email.Subject = "Event Reservation Successful";
                     email.Body = ConvertPartialViewToString(PartialView("_Email", reserve));
-                    try { email.Sendmail(); }
-                    catch
-                    {
+                    email.Sendmail();
+                    //try { email.Sendmail(); }
+                    //catch
+                    //{
                        
-                    }
+                    //}
                     return View("Success");
                     cap.EventCapacity -= reserve.NumAttendees;
                     if (cap.EventCapacity == 0)

@@ -32,7 +32,7 @@ namespace TwentyTwoVzn.Models
             smtp.UseDefaultCredentials = false;
             smtp.EnableSsl = true;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            NetworkCredential nc = new NetworkCredential("21821217@dut4life.ac.za", "Dut971118");
+            NetworkCredential nc = new NetworkCredential("21821217@dut4life.ac.za", "$$Dut971118");
             smtp.Credentials = nc;
             smtp.Send(mc);
         }
